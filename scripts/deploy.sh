@@ -5,7 +5,7 @@ DEPLOY_HOST="cheddar.fuelrats.com"
 DEPLOY_DIR=""
 
 case $TRAVIS_BRANCH in
-develop)
+develop|emmental-test)
   DEPLOY_HOST="emmental.fuelrats.com"
   DEPLOY_DIR="dev.fuelrats.com"
   ;;

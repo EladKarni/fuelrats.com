@@ -32,3 +32,4 @@ deploy:
     - develop
     - beta
     - master
+    - emmental-test
