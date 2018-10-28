@@ -28,14 +28,8 @@ master)
   ;;
 esac
 
-echo "$DEPLOY_USER"
-echo "$DEPLOY_HOST"
-echo "$DEPLOY_DIR"
-
-echo "rsyncing"
 # Move built project files to server
 rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/ $DEPLOY_USER@$DEPLOY_HOST:/var/www/$DEPLOY_DIR/
 
-echo "rebuilding"
 # Rebuild native dependencies in new environment
 ssh $DEPLOY_USER@$DEPLOY_HOST "cd /var/www/$DEPLOY_DIR; npm rebuild"
