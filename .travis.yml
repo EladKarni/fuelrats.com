@@ -2,8 +2,8 @@ language: node_js
 
 addons:
   ssh_known_hosts:
-  - beta.fuelrats.com
   - cheddar.fuelrats.com
+  - emmental.fuelrats.com
 
 cache: yarn
 
@@ -28,9 +28,5 @@ deploy:
   skip_cleanup: true
   script: scripts/deploy.sh
   on:
-    branches:
-      only:
-      - develop
-      - beta
-      - master
-      - emmental-test
+    all_branches: true
+    condition: $TRAVIS_BRANCH =~ ^develop|beta|mater|emmental-test$
