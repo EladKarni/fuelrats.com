@@ -32,4 +32,4 @@ esac
 rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/ $DEPLOY_USER@$DEPLOY_HOST:/var/www/$DEPLOY_DIR/
 
 # Rebuild native dependencies in new environment
-ssh $DEPLOY_USER@$DEPLOY_HOST "cd /var/www/$DEPLOY_DIR; npm rebuild"
+# ssh $DEPLOY_USER@$DEPLOY_HOST "cd /var/www/$DEPLOY_DIR; npm rebuild"
