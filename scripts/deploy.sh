@@ -1,24 +1,25 @@
 #!/bin/bash
 
-DEPLOY_USER="travis-deployment"
-DEPLOY_HOST="cheddar.fuelrats.com"
+DEPLOY_HOST="travis-deployment@emmental.fuelrats.com"
 DEPLOY_DIR=""
+SERVICE_NAME=""
 
 case $TRAVIS_BRANCH in
 develop|emmental-test)
-  DEPLOY_HOST="emmental.fuelrats.com"
   DEPLOY_DIR="dev.fuelrats.com"
+  SERVICE_NAME="fuelratsweb_dev"
   ;;
 
 
 beta)
-  DEPLOY_HOST="emmental.fuelrats.com"
   DEPLOY_DIR="beta.fuelrats.com"
+  SERVICE_NAME="fuelratsweb_beta"
   ;;
 
 
 master)
   DEPLOY_DIR="fuelrats.com"
+  SERVICE_NAME="fuelratsweb"
   ;;
 
 
@@ -29,7 +30,7 @@ master)
 esac
 
 # Move built project files to server
-rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/ $DEPLOY_USER@$DEPLOY_HOST:/var/www/$DEPLOY_DIR/
+rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/ $DEPLOY_HOST:/var/www/$DEPLOY_DIR/
 
-# Rebuild native dependencies in new environment
-# ssh $DEPLOY_USER@$DEPLOY_HOST "cd /var/www/$DEPLOY_DIR; npm rebuild"
+# restart service
+ssh -t $DEPLOY_HOST "sudo systemctl restart $SERVICE_NAME.service"
